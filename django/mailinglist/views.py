@@ -11,6 +11,31 @@ from mailinglist.models import MailingList,Subscriber,Message
 
 
 
+class UnsubscribeView(DeleteView):
+    model = Subscriber
+    template_name='mailinglist/unsubscribe.html'
+
+    def get_success_url(self):
+        mailing_list=self.object.mailing_list
+        return reverse('mailinglist:subscribe',kwargs={
+            'mailinglist_pk':mailing_list.id
+        })
+
+
+
+
+class ConfirmSubscriptionView(DetailView):
+    model = Subscriber
+    template_name = 'mailinglist/confirm_subscription.html'
+
+    def get_object(self,queryset=None):
+        subscriber=super().get_object(queryset=queryset)
+        subscriber.confirmed=True
+        subscriber.save()
+        return subscriber
+
+
+
 class ThankYouForSubscribingView(DetailView):
     model = MailingList
     template_name='mailinglist/subscription_thankyou.html'
