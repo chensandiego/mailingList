@@ -6,8 +6,15 @@ from django.urls import reverse,reverse_lazy
 from django.views.generic import CreateView,DetailView,DeleteView,ListView
 
 from mailinglist.forms import SubscriberForm,MessageForm,MailingListForm
-from maillinglist.mixins import UserCanUseMaillingList
+from mailinglist.mixins import UserCanUseMailingList
 from mailinglist.models import MailingList,Subscriber,Message
+
+
+
+
+class MessageDetailView(LoginRequiredMixin,UserCanUseMailingList,DetailView):
+    model = Message
+
 
 
 class CreateMessageView(LoginRequiredMixin,CreateView):
@@ -49,7 +56,7 @@ class CreateMessageView(LoginRequiredMixin,CreateView):
         mailing_list=get_object_or_404(MailingList,id=self.kwargs['mailinglist_pk'])
 
         if not mailing_list.user_can_use_mailing_list(self.request.user):
-            raise PermissionDenied)()
+            raise PermissionDenied()
         return mailing_list
 
 
@@ -111,8 +118,9 @@ class MailingListDetailView(LoginRequiredMixin,UserCanUseMailingList,DetailView)
     model=MailingList
 
 class MailingListListView(LoginRequiredMixin,ListView):
-    def get_queryset(self):
-        return MailingList.objects.filter(owner=self.request.user)
+    print('hello')
+    #def get_queryset(self):
+    #    return MailingList.objects.filter(owner=self.request.user)
 
 
 
@@ -127,5 +135,5 @@ class CreateMailingListView(LoginRequiredMixin,CreateView):
         }
 
 class DeleteMailingListView(LoginRequiredMixin,DeleteView):
-    model=Maillist
+    model=MailingList
     success_url=reverse_lazy('maillinglist:maillinglist_list')
