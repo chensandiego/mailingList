@@ -138,3 +138,12 @@ CRISPY_TEMPLATE_PACK='bootstrap4'
 LOGIN_URL='user:login'
 LOGIN_REDIRECT_URL='mailinglist:mailinglist_list'
 LOGOUT_REDIRECT_URL='user:login'
+
+EMAIL_HOST='smtp.example.com'
+EMAIL_HOST_USER='aaa'
+EMAIL_PORT=587
+EMAIL_USER_TLS=True
+EMAIL_HOST_PASSWORD=os.getenv('EMAIL_PASSWORD')
+
+MAILING_LIST_FROM_EMAIL='noreply@example.com'
+MAILING_LIST_LINK_DOMAIN='http://localhost:8000'
