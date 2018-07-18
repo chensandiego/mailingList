@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.template import Engines,Context
+from django.template import engines,Context
 from django.core.mail import send_mail
 from django.urls import reverse
 

@@ -3,8 +3,7 @@ import uuid
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from mailinglist import emails
-
+from mailinglist import emails,tasks
 
 
 
