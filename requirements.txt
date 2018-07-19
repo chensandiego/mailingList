@@ -5,3 +5,4 @@ django-crispy-forms==1.7.0
 celery<4.2
 celery[redis]
 django-celery-results<2.0
+djangorestframework<3.8

@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'markdownify',
     'django_celery_results',
-
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -152,3 +152,17 @@ MAILING_LIST_LINK_DOMAIN='http://localhost:8000'
 
 CELERY_BROKER_URL='redis://localhost:6379/0'
 CELERY_RESULT_BACKEND='django-db'
+
+REST_FRAMEWORK={
+    'DEFAULT_PERMISSION_CLASSES':(
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_THROTTLE_CLASSES':(
+        'rest_framework.throttling.UserRateThrottle',
+        'rest_framework.throttling.AnonRateThrottle',
+    ),
+    'DEFAULT_THROTTLE_RATES':{
+        'user':'60/minute',
+        'anon':'30/minute',
+    },
+}
